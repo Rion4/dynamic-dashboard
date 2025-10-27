@@ -177,7 +177,7 @@ export function WidgetContainer({
         </button>
       </div>
       {/* Widget Content */}
-      <div className="pt-10">
+      <div className="pt-10 px-4 pb-4 h-full overflow-auto">
         <WidgetRenderer type={type} />
       </div>
 

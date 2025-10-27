@@ -4,11 +4,12 @@ import type React from "react";
 
 import { LayoutGrid } from "lucide-react";
 import { WidgetContainer } from "./widget-container";
+import { WIDGET_DEFAULT_SIZES, DEFAULT_SIZE } from "@/lib/widget-sizes";
 
 interface DashboardProps {
   widgets: Array<{ id: string; type: string }>;
   onRemoveWidget: (id: string) => void;
-  onDropOnCanvas: (e: React.DragEvent) => void;
+  onDropOnCanvas: (e: React.DragEvent, dropX: number, dropY: number) => void;
   onDragEnd: () => void;
   draggedWidget: string | null;
   widgetSizes: Record<string, { width: number; height: number }>;
@@ -55,11 +56,19 @@ export function Dashboard({
         className={`flex-1 overflow-auto p-8 transition-colors ${
           draggedWidget ? "bg-primary/5" : ""
         }`}
+        style={{ maxWidth: "100%" }}
         onDragOver={(e) => {
           e.preventDefault();
           e.dataTransfer.dropEffect = "copy";
         }}
-        onDrop={onDropOnCanvas}
+        onDrop={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const scrollX = e.currentTarget.scrollLeft;
+          const scrollY = e.currentTarget.scrollTop;
+          const dropX = e.clientX - rect.left + scrollX;
+          const dropY = e.clientY - rect.top + scrollY;
+          onDropOnCanvas(e, dropX, dropY);
+        }}
         onDragLeave={() => {}}
         onDragEnd={onDragEnd}
       >
@@ -78,14 +87,31 @@ export function Dashboard({
             </div>
           </div>
         ) : (
-          <div className="relative w-full h-full" style={{ minHeight: 600 }}>
+          <div
+            className="relative w-full overflow-hidden"
+            style={{
+              minHeight: Math.max(
+                600,
+                widgets.length > 0
+                  ? Math.max(
+                      ...widgets.map((widget) => {
+                        const pos = widgetPositions[widget.id] || { x: 40, y: 40 };
+                        const size = widgetSizes[widget.id] || WIDGET_DEFAULT_SIZES[widget.type] || DEFAULT_SIZE;
+                        return pos.y + size.height;
+                      })
+                    ) + 100
+                  : 600
+              ),
+              maxWidth: "100%",
+            }}
+          >
             {widgets.map((widget) => (
               <WidgetContainer
                 key={widget.id}
                 id={widget.id}
                 type={widget.type}
                 onRemove={onRemoveWidget}
-                size={widgetSizes[widget.id] || { width: 350, height: 350 }}
+                size={widgetSizes[widget.id] || WIDGET_DEFAULT_SIZES[widget.type] || DEFAULT_SIZE}
                 position={widgetPositions[widget.id] || { x: 40, y: 40 }}
                 onResize={onResizeWidget}
                 onMove={onMoveWidget}

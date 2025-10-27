@@ -89,10 +89,10 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Analytics",
     icon: <BarChart3 className="w-5 h-5" />,
     content: (
-      <div className="space-y-4">
+      <div className="space-y-4 text-foreground">
         <div className="flex justify-between items-center">
           <span className="text-sm text-muted-foreground">Page Views</span>
-          <span className="text-2xl font-semibold">12.5K</span>
+          <span className="text-2xl font-semibold text-foreground">12.5K</span>
         </div>
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={analyticsData}>
@@ -110,7 +110,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Trending",
     icon: <TrendingUp className="w-5 h-5" />,
     content: (
-      <div className="space-y-4">
+      <div className="space-y-4 text-foreground">
         <div className="flex justify-between items-center">
           <span className="text-sm text-muted-foreground">Growth Rate</span>
           <span className="text-2xl font-semibold text-green-500">+24%</span>
@@ -131,15 +131,15 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Users",
     icon: <Users className="w-5 h-5" />,
     content: (
-      <div className="space-y-4">
+      <div className="space-y-4 text-foreground">
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-muted/50 rounded-lg p-3">
             <p className="text-xs text-muted-foreground mb-1">Total Users</p>
-            <p className="text-2xl font-semibold">2,847</p>
+            <p className="text-2xl font-semibold text-foreground">2,847</p>
           </div>
           <div className="bg-muted/50 rounded-lg p-3">
             <p className="text-xs text-muted-foreground mb-1">Active Today</p>
-            <p className="text-2xl font-semibold">1,243</p>
+            <p className="text-2xl font-semibold text-foreground">1,243</p>
           </div>
         </div>
         <div className="bg-muted/50 rounded-lg p-3">
@@ -155,7 +155,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Calendar",
     icon: <Calendar className="w-5 h-5" />,
     content: (
-      <div className="space-y-3">
+      <div className="space-y-3 text-foreground">
         <div className="text-sm text-muted-foreground mb-3">December 2024</div>
         <div className="grid grid-cols-7 gap-1">
           {Array.from({ length: 28 }).map((_, i) => (
@@ -176,13 +176,13 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Timer",
     icon: <Clock className="w-5 h-5" />,
     content: (
-      <div className="space-y-4">
+      <div className="space-y-4 text-foreground">
         <div className="text-4xl font-mono font-semibold text-center text-primary">02:45:30</div>
         <div className="flex gap-2">
-          <button className="flex-1 py-2 bg-primary/20 hover:bg-primary/30 rounded-lg text-sm font-medium transition-colors">
+          <button className="flex-1 py-2 bg-primary/20 hover:bg-primary/30 rounded-lg text-sm font-medium text-foreground transition-colors">
             Start
           </button>
-          <button className="flex-1 py-2 bg-muted/50 hover:bg-muted transition-colors rounded-lg text-sm font-medium">
+          <button className="flex-1 py-2 bg-muted/50 hover:bg-muted transition-colors rounded-lg text-sm font-medium text-foreground">
             Reset
           </button>
         </div>
@@ -193,7 +193,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Performance",
     icon: <Zap className="w-5 h-5" />,
     content: (
-      <div className="space-y-4">
+      <div className="space-y-4 text-foreground">
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={performanceData}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -210,7 +210,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Goals",
     icon: <Target className="w-5 h-5" />,
     content: (
-      <div className="space-y-4">
+      <div className="space-y-4 text-foreground">
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span>Q4 Target</span>
@@ -236,7 +236,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Distribution",
     icon: <PieChart className="w-5 h-5" />,
     content: (
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center text-foreground">
         <ResponsiveContainer width="100%" height={220}>
           <RechartsPieChart>
             <Pie
@@ -262,15 +262,15 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Health",
     icon: <Activity className="w-5 h-5" />,
     content: (
-      <div className="space-y-4">
+      <div className="space-y-4 text-foreground">
         <div className="grid grid-cols-2 gap-3">
           <div className="bg-muted/50 rounded-lg p-3">
             <p className="text-xs text-muted-foreground mb-1">Heart Rate</p>
-            <p className="text-2xl font-semibold">72 bpm</p>
+            <p className="text-2xl font-semibold text-foreground">72 bpm</p>
           </div>
           <div className="bg-muted/50 rounded-lg p-3">
             <p className="text-xs text-muted-foreground mb-1">Steps</p>
-            <p className="text-2xl font-semibold">8.2K</p>
+            <p className="text-2xl font-semibold text-foreground">8.2K</p>
           </div>
         </div>
         <div className="bg-muted/50 rounded-lg p-3">
@@ -286,7 +286,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Messages",
     icon: <MessageSquare className="w-5 h-5" />,
     content: (
-      <div className="space-y-2">
+      <div className="space-y-2 text-foreground">
         <div className="p-3 bg-muted/50 rounded-lg hover:bg-muted/70 transition-colors cursor-pointer">
           <p className="text-sm font-medium">Sarah Johnson</p>
           <p className="text-xs text-muted-foreground truncate">That sounds great! Let's schedule...</p>
@@ -304,17 +304,17 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Settings",
     icon: <Settings className="w-5 h-5" />,
     content: (
-      <div className="space-y-3">
+      <div className="space-y-3 text-foreground">
         <div className="flex justify-between items-center p-2 hover:bg-muted/50 rounded-lg transition-colors">
-          <span className="text-sm">Dark Mode</span>
+          <span className="text-sm text-foreground">Dark Mode</span>
           <div className="w-10 h-6 bg-primary rounded-full" />
         </div>
         <div className="flex justify-between items-center p-2 hover:bg-muted/50 rounded-lg transition-colors">
-          <span className="text-sm">Notifications</span>
+          <span className="text-sm text-foreground">Notifications</span>
           <div className="w-10 h-6 bg-primary rounded-full" />
         </div>
         <div className="flex justify-between items-center p-2 hover:bg-muted/50 rounded-lg transition-colors">
-          <span className="text-sm">Auto-save</span>
+          <span className="text-sm text-foreground">Auto-save</span>
           <div className="w-10 h-6 bg-muted/50 rounded-full" />
         </div>
       </div>
@@ -324,7 +324,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Notifications",
     icon: <Bell className="w-5 h-5" />,
     content: (
-      <div className="space-y-2">
+      <div className="space-y-2 text-foreground">
         <div className="flex gap-3 p-2 hover:bg-muted/50 rounded-lg transition-colors cursor-pointer">
           <div className="w-2 h-2 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
           <div className="flex-1 min-w-0">
@@ -346,7 +346,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Email",
     icon: <Mail className="w-5 h-5" />,
     content: (
-      <div className="space-y-2">
+      <div className="space-y-2 text-foreground">
         <div className="p-3 bg-muted/50 rounded-lg hover:bg-muted/70 transition-colors cursor-pointer">
           <p className="text-sm font-medium">John Doe</p>
           <p className="text-xs text-muted-foreground truncate">Project update - Q4 results</p>
@@ -364,7 +364,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Documents",
     icon: <FileText className="w-5 h-5" />,
     content: (
-      <div className="space-y-2">
+      <div className="space-y-2 text-foreground">
         <div className="flex items-center gap-3 p-2 hover:bg-muted/50 rounded-lg cursor-pointer transition-colors">
           <div className="w-8 h-8 bg-red-500/10 rounded flex items-center justify-center flex-shrink-0">
             <FileText className="w-4 h-4 text-red-500" />
@@ -390,18 +390,18 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Tasks",
     icon: <CheckSquare className="w-5 h-5" />,
     content: (
-      <div className="space-y-2">
+      <div className="space-y-2 text-foreground">
         <div className="flex items-center gap-3 p-2 hover:bg-muted/50 rounded-lg transition-colors">
           <input type="checkbox" className="w-4 h-4 rounded" defaultChecked />
           <span className="text-sm line-through text-muted-foreground">Complete project</span>
         </div>
         <div className="flex items-center gap-3 p-2 hover:bg-muted/50 rounded-lg transition-colors">
           <input type="checkbox" className="w-4 h-4 rounded" />
-          <span className="text-sm">Review feedback</span>
+          <span className="text-sm text-foreground">Review feedback</span>
         </div>
         <div className="flex items-center gap-3 p-2 hover:bg-muted/50 rounded-lg transition-colors">
           <input type="checkbox" className="w-4 h-4 rounded" />
-          <span className="text-sm">Deploy to production</span>
+          <span className="text-sm text-foreground">Deploy to production</span>
         </div>
       </div>
     ),
@@ -410,7 +410,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Projects",
     icon: <Briefcase className="w-5 h-5" />,
     content: (
-      <div className="space-y-2">
+      <div className="space-y-2 text-foreground">
         <div className="p-3 bg-muted/50 rounded-lg hover:bg-muted/70 transition-colors cursor-pointer">
           <p className="text-sm font-medium">Website Redesign</p>
           <p className="text-xs text-muted-foreground">In Progress • 65%</p>
@@ -432,11 +432,11 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Revenue",
     icon: <DollarSign className="w-5 h-5" />,
     content: (
-      <div className="space-y-4">
+      <div className="space-y-4 text-foreground">
         <div className="grid grid-cols-2 gap-3">
           <div className="bg-muted/50 rounded-lg p-3">
             <p className="text-xs text-muted-foreground mb-1">This Month</p>
-            <p className="text-2xl font-semibold">$45.2K</p>
+            <p className="text-2xl font-semibold text-foreground">$45.2K</p>
           </div>
           <div className="bg-muted/50 rounded-lg p-3">
             <p className="text-xs text-muted-foreground mb-1">Growth</p>
@@ -459,18 +459,18 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Favorites",
     icon: <Heart className="w-5 h-5" />,
     content: (
-      <div className="space-y-2">
+      <div className="space-y-2 text-foreground">
         <div className="flex items-center gap-2 p-2 hover:bg-muted/50 rounded-lg cursor-pointer transition-colors">
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-          <span className="text-sm">Dashboard Analytics</span>
+          <span className="text-sm text-foreground">Dashboard Analytics</span>
         </div>
         <div className="flex items-center gap-2 p-2 hover:bg-muted/50 rounded-lg cursor-pointer transition-colors">
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-          <span className="text-sm">Performance Metrics</span>
+          <span className="text-sm text-foreground">Performance Metrics</span>
         </div>
         <div className="flex items-center gap-2 p-2 hover:bg-muted/50 rounded-lg cursor-pointer transition-colors">
           <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-          <span className="text-sm">Revenue Report</span>
+          <span className="text-sm text-foreground">Revenue Report</span>
         </div>
       </div>
     ),
@@ -479,9 +479,9 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Playlist",
     icon: <Music className="w-5 h-5" />,
     content: (
-      <div className="space-y-3">
+      <div className="space-y-3 text-foreground">
         <div className="p-3 bg-muted/50 rounded-lg">
-          <p className="text-sm font-medium">Now Playing</p>
+          <p className="text-sm font-medium text-foreground">Now Playing</p>
           <p className="text-xs text-muted-foreground mt-1">Beautiful Day - 3:45</p>
           <div className="w-full h-1 bg-background rounded-full overflow-hidden mt-2">
             <div className="h-full w-1/3 bg-primary rounded-full" />
@@ -498,7 +498,7 @@ const widgets: Record<string, { title: string; icon: React.ReactNode; content: R
     title: "Ideas",
     icon: <Lightbulb className="w-5 h-5" />,
     content: (
-      <div className="space-y-2">
+      <div className="space-y-2 text-foreground">
         <div className="p-3 bg-muted/50 rounded-lg hover:bg-muted/70 transition-colors cursor-pointer">
           <p className="text-sm font-medium">New feature idea</p>
           <p className="text-xs text-muted-foreground">Advanced dark mode toggle</p>
@@ -528,12 +528,12 @@ export function WidgetRenderer({ type }: WidgetRendererProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-foreground">
       <div className="flex items-center gap-3">
         <div className="text-foreground">{widget.icon}</div>
         <h3 className="font-semibold text-foreground">{widget.title}</h3>
       </div>
-      <div>{widget.content}</div>
+      <div className="text-foreground">{widget.content}</div>
     </div>
   )
 }

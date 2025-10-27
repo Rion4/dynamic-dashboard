@@ -5,6 +5,7 @@ import type React from "react";
 import { useState } from "react";
 import { Dashboard } from "@/components/dashboard";
 import { WidgetSidebar } from "@/components/widget-sidebar";
+import { WIDGET_DEFAULT_SIZES, DEFAULT_SIZE } from "@/lib/widget-sizes";
 
 export default function Home() {
   const [widgets, setWidgets] = useState<Array<{ id: string; type: string }>>(
@@ -28,7 +29,7 @@ export default function Home() {
     setDraggedWidget(null);
   };
 
-  const handleDropOnCanvas = (e: React.DragEvent) => {
+  const handleDropOnCanvas = (e: React.DragEvent, dropX: number, dropY: number) => {
     e.preventDefault();
     const widgetType = e.dataTransfer.getData("widgetType");
     if (widgetType) {
@@ -36,17 +37,28 @@ export default function Home() {
         id: `${widgetType}-${Date.now()}`,
         type: widgetType,
       };
+      const widgetSize = WIDGET_DEFAULT_SIZES[widgetType] || DEFAULT_SIZE;
+      
+      // Calculate position centered at drop point, with bounds checking
+      const canvasPadding = 32; // canvas has p-8 = 32px padding
+      const minX = canvasPadding;
+      const minY = canvasPadding;
+      
+      let x = dropX - widgetSize.width / 2;
+      let y = dropY - widgetSize.height / 2;
+      
+      // Ensure widget doesn't go outside canvas bounds
+      x = Math.max(minX, x);
+      y = Math.max(minY, y);
+      
       setWidgets([...widgets, newWidget]);
       setWidgetSizes((prev) => ({
         ...prev,
-        [newWidget.id]: { width: 350, height: 300 },
+        [newWidget.id]: widgetSize,
       }));
       setWidgetPositions((prev) => ({
         ...prev,
-        [newWidget.id]: {
-          x: 40 + widgets.length * 40,
-          y: 40 + widgets.length * 40,
-        },
+        [newWidget.id]: { x, y },
       }));
       setDraggedWidget(null);
     }
@@ -82,30 +94,53 @@ export default function Home() {
   // Arrange widgets in a grid layout
   const arrangeWidgets = () => {
     const gap = 24;
-    const defaultWidth = 350;
-    const defaultHeight = 300;
-    const columns = 3;
-    // Arrange positions
-    setWidgetPositions(() => {
-      const newPositions: Record<string, { x: number; y: number }> = {};
-      widgets.forEach((widget, idx) => {
-        const col = idx % columns;
-        const row = Math.floor(idx / columns);
-        newPositions[widget.id] = {
-          x: 40 + col * (defaultWidth + gap),
-          y: 40 + row * (defaultHeight + gap),
-        };
-      });
-      return newPositions;
+    const startX = 40;
+    const startY = 40;
+    
+    // Calculate available width based on viewport
+    // Account for sidebar (~280px), padding (32px total), scrollbar (0-20px)
+    const sidebarWidth = 280;
+    const padding = 64; // 32px per side for canvas padding
+    const safeMargin = 20;
+    const availableWidth = window.innerWidth - sidebarWidth - padding - safeMargin;
+    
+    // Calculate positions based on widget sizes
+    let currentX = startX;
+    let currentY = startY;
+    let maxHeightInRow = 0;
+    
+    // Arrange positions and reset sizes
+    const newPositions: Record<string, { x: number; y: number }> = {};
+    const newSizes: Record<string, { width: number; height: number }> = {};
+    
+    widgets.forEach((widget, idx) => {
+      const defaultSize = WIDGET_DEFAULT_SIZES[widget.type] || DEFAULT_SIZE;
+      
+      // Update widget size to its default
+      newSizes[widget.id] = defaultSize;
+      
+      // Check if this widget fits in the current row
+      if (currentX > startX && currentX + defaultSize.width > availableWidth) {
+        // Wrap to next row
+        currentX = startX;
+        currentY += maxHeightInRow + gap;
+        maxHeightInRow = 0;
+      }
+      
+      // Calculate position
+      newPositions[widget.id] = { x: currentX, y: currentY };
+      
+      // Track the tallest widget in this row
+      if (defaultSize.height > maxHeightInRow) {
+        maxHeightInRow = defaultSize.height;
+      }
+      
+      // Move to next position
+      currentX += defaultSize.width + gap;
     });
-    // Reset sizes
-    setWidgetSizes(() => {
-      const newSizes: Record<string, { width: number; height: number }> = {};
-      widgets.forEach((widget) => {
-        newSizes[widget.id] = { width: defaultWidth, height: defaultHeight };
-      });
-      return newSizes;
-    });
+    
+    setWidgetPositions(() => newPositions);
+    setWidgetSizes(() => newSizes);
   };
 
   return (
