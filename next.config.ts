@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
+try {
+  const nextConfig: NextConfig = {
+    /* config options here */
+  };
+  module.exports = nextConfig;
+} catch (error) {
+  console.error("Error in next.config.js:", error);
+  module.exports = {};
+}
