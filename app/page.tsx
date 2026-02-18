@@ -18,6 +18,7 @@ export default function Home() {
   const [widgetPositions, setWidgetPositions] = useState<
     Record<string, { x: number; y: number }>
   >({});
+  const [minWidgetSize, setMinWidgetSize] = useState(300);
 
   const handleDragStart = (type: string, e: React.DragEvent) => {
     e.dataTransfer.effectAllowed = "copy";
@@ -87,7 +88,7 @@ export default function Home() {
   const handleResizeWidget = (id: string, width: number, height: number) => {
     setWidgetSizes((prev) => ({
       ...prev,
-      [id]: { width: Math.max(300, width), height: Math.max(300, height) },
+      [id]: { width: Math.max(minWidgetSize, width), height: Math.max(minWidgetSize, height) },
     }));
   };
 
